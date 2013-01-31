@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="span8">
+        <h2>{{ obj.title }}</h2>
+        {{ obj.body|safe }}
+        {% include '_post_info.html' %}
+    </div>
+{% endblock content %}

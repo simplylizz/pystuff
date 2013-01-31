@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+    {% for obj in object_list %}
+        <div class="row span8">
+            <h2><a href="{{ url_for('core.post_detail', pk=obj.id, slug=obj.slug) }}">{{ obj.title }}</a></h2>
+            {{ obj.body|safe }}
+            {#<a class="btn btn-primary btn-mini" href="#">Читать больше, лучше и интереснее!</a>#}
+            {% include '_post_info.html' %}
+        </div>
+    {% else %}
+        <div class="span12"><p>Сожалеем, но ничего интересного тут не найдено.</p></div>
+    {% endfor %}
+{% endblock content %}
