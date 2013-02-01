@@ -12,7 +12,7 @@ class PostList(views.MethodView):
     def get(self):
         return flask.render_template(
             'post_list.html',
-            object_list=models.Post.query.all(),
+            object_list=models.Post.query.order_by('-created_at').all(),
         )
 
 
