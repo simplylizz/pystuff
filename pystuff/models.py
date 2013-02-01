@@ -38,7 +38,7 @@ class User(db.Model, security.UserMixin, DatesMixin):
     avatar = db.Column(db.String(256))
 
     # Flask-Security stuff:
-    password = db.Column(db.String(64), nullable=True)
+    password = db.Column(db.String(128), nullable=True)
     confirmed_at = db.Column(db.DateTime, nullable=True)
     last_login_at = db.Column(db.DateTime, nullable=True)
     current_login_at = db.Column(db.DateTime, nullable=True)
