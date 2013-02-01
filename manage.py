@@ -20,6 +20,11 @@ project_root_path = os.path.join(os.path.dirname(app.root_path))
 def initdb():
     """Reset and init database."""
 
+    # Prevent from accidental droping DB.
+    # TODO: Implement "silent" flag for this.
+    if raw_input('Do you really want to make initial DB (y/n)?') != 'y':
+        return
+
     db.drop_all()
     db.create_all()
 
