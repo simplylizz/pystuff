@@ -3,7 +3,8 @@
 
 import os
 
-from flask.ext.script import Manager
+from flask.ext import script
+from flask.ext.security import utils
 
 import pystuff
 from pystuff.extensions import db
@@ -11,7 +12,7 @@ from pystuff import models
 
 
 app = pystuff.create_app()
-manager = Manager(app)
+manager = script.Manager(app)
 project_root_path = os.path.join(os.path.dirname(app.root_path))
 
 
@@ -28,11 +29,19 @@ def initdb():
     db.drop_all()
     db.create_all()
 
-    user = models.User(
-        username=u'admin',
-        email=u'admin@example.com',
-        password=u'password',
-    )
+    user_defaults = {
+        'username': 'admin',
+        'email': 'admin@example.com',
+        'password': 'admin',
+    }
+    input_msg = 'Enter %s [%s]: '
+    for key, value in user_defaults.iteritems():
+        user_defaults[key] = raw_input(input_msg % (key, value)) or value
+
+    user_defaults['password'] = utils.encrypt_password(
+        user_defaults['password'])
+
+    user = models.User(**user_defaults)
 
     # First post from my sandbox.
     post = models.Post(
