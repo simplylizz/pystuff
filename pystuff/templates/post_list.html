@@ -1,5 +1,7 @@
 {% extends "base_list.html" %}
 
+{% import "macroses.html" as mcs %}
+
 
 {% block top_content %}
     <div class="hero-unit">
@@ -7,3 +9,12 @@
         <p class="lead">Beta версия (которая "coz it's beta than nohting") в действии. Просим проявить снисходительсность, понимание и терпение.</p>
     </div>
 {% endblock top_content %}
+
+{% block content_list_item %}
+    <h2>{{ mcs.link_to(obj.title, 'core.post_detail', pk=obj.id, slug=obj.slug) }}</h2>
+    {{ obj.body|truncate(300, False)|urlize(25)|markdown }}
+    {% if obj.body|length > 300 %}
+        <p>{{ mcs.link_to('Читать далее', 'core.post_detail', pk=obj.id, slug=obj.slug, css_class='btn btn-primary btn-mini') }}</p>
+    {% endif %}
+    {% include '_post_info.html' %}
+{% endblock content_list_item %}

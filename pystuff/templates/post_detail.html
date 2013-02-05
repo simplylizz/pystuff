@@ -3,7 +3,7 @@
 {% block content %}
     <div class="span8">
         <h2>{{ obj.title }}</h2>
-        {{ obj.body|safe }}
+        {{ obj.body|urlize(25)|markdown }}
         {% include '_post_info.html' %}
     </div>
 {% endblock content %}

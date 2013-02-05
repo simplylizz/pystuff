@@ -38,6 +38,9 @@ def create_app():
     for model in (models.User, models.Post):
         admin.add_view(extensions.AuthModelView(model, db.session))
 
+    from flask.ext import markdown as markdown_ext
+    markdown_ext.Markdown(app, output_format='html5')
+
     # end extensions
 
     return app
