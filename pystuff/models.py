@@ -77,6 +77,7 @@ class Post(db.Model, DatesMixin):
     body = db.Column(db.Text)
     original_url = db.Column(db.String(512), default='')
     author_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    draft = db.Column(db.Boolean, default=False)
 
     views = db.Column(db.Integer, default=0)
 
